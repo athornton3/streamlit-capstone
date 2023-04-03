@@ -12,12 +12,16 @@ map_data = pd.DataFrame(
     np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
     columns=['lat', 'lon'])
 
+st.subheader('Map Title Here')
 st.map(map_data)
 
-#text box
-st.text_input("Your name", key="name")
+#text box demo
+st.text_input("Research Project Title", key="title")
 # You can access the value at any point with:
-st.session_state.name
+st.session_state.title
+
+st.text_input("Research Project Abstract", key="abstract")
+st.session_state.abstract
 
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
