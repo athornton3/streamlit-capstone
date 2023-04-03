@@ -20,7 +20,7 @@ add_textbox = st.sidebar.text_input("Research Project Title", key="title")
 # You can access the value at any point with:
 st.session_state.title
 
-add_textbox2 = st.text_input("Research Project Abstract", key="abstract")
+add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
 st.session_state.abstract
 
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
