@@ -24,6 +24,16 @@ st.session_state.title
 add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
 st.session_state.abstract
 
+#CREATING OUR FORM FIELDS 
+with st.form("form1", clear_on_submit=True): 
+    name = st.text_input("Enter full name") 
+    email = st.text_input("Enter email") 
+    message = st.text_area("Message") 
+    age = st.slider("Enter your age", min_value = 10, max_value = 100) 
+    st.write(age)
+
+    submit = st.form_submit_button("Submit this form")
+
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
 def get_UN_data():
