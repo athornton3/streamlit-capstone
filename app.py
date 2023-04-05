@@ -44,7 +44,7 @@ with st.form("form1", clear_on_submit=False):
             help="You can choose the number of results to display. Between 3 and 30, default number is 10.",
         )
 
-    submit_button = st.form_submit_button("Submit this form")
+    submit_button = st.form_submit_button("Submit title/abstract")
 
 if not submit_button:
     st.stop()
