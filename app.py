@@ -50,7 +50,7 @@ with st.form("form1", clear_on_submit=False):
         )
     st.write(numResults)
 
-    submit = st.form_submit_button("Submit this form")
+    submit_button = st.form_submit_button("Submit this form")
 
 if not submit_button:
     st.stop()
