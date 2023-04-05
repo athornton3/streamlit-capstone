@@ -30,17 +30,17 @@ with st.form("form1", clear_on_submit=False):
     abstract = st.text_area("Abstract (max 300 words)",
             height=300) 
     MAX_WORDS = 300
-        import re
-        res = len(re.findall(r"\w+", abstract))
-        if res > MAX_WORDS:
-            st.warning(
+    import re
+    res = len(re.findall(r"\w+", abstract))
+    if res > MAX_WORDS:
+        st.warning(
                 "⚠️ Your text contains "
                 + str(res)
                 + " words."
                 + " Only the first 300 words will be reviewed."
             )
 
-            abstract = abstract[:MAX_WORDS]
+        abstract = abstract[:MAX_WORDS]
     numResults = st.slider(
             "# of results",
             min_value=3,
