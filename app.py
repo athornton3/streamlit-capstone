@@ -8,14 +8,6 @@ import altair as alt
 st.markdown("# Main page 🎈")
 st.sidebar.markdown("# Main page 🎈")
 
-# Map demo
-map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
-
-st.subheader('Map Title Here')
-st.map(map_data)
-
 #text box demo
 add_textbox = st.sidebar.text_input("Research Project Title", key="title")
 # You can access the value at any point with:
@@ -88,6 +80,14 @@ try:
             )
         )
         st.altair_chart(chart, use_container_width=True)
+    # Map demo
+    map_data = pd.DataFrame(
+        np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+        columns=['lat', 'lon'])
+
+    st.subheader('Map Title Here')
+    st.map(map_data)
+
 except URLError as e:
     st.error(
         """
