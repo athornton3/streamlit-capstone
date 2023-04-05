@@ -6,7 +6,7 @@ import pandas as pd
 import altair as alt
 
 st.markdown("# Main page 🎈")
-st.sidebar.markdown("# Main page 🎈")
+st.sidebar.markdown("# Side Bar 🎈")
 
 #text box demo
 add_textbox = st.sidebar.text_input("Research Project Title", key="title")
@@ -16,11 +16,13 @@ st.session_state.title
 add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
 st.session_state.abstract
 
-#CREATING OUR FORM FIELDS 
+#Create input form for title and abstract 
 with st.form("form1", clear_on_submit=False): 
     title = st.text_input("Title") 
     abstract = st.text_area("Abstract (max 300 words)",
             height=300) 
+    
+    #check for max words
     MAX_WORDS = 300
     import re
     res = len(re.findall(r"\w+", abstract))
@@ -33,14 +35,14 @@ with st.form("form1", clear_on_submit=False):
             )
 
         abstract = abstract[:MAX_WORDS]
+    
     numResults = st.slider(
-            "# of results",
+            "Number of results",
             min_value=3,
             max_value=30,
             value=10,
             help="You can choose the number of results to display. Between 3 and 30, default number is 10.",
         )
-    st.write(numResults)
 
     submit_button = st.form_submit_button("Submit this form")
 
