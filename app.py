@@ -25,14 +25,35 @@ add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract"
 st.session_state.abstract
 
 #CREATING OUR FORM FIELDS 
-with st.form("form1", clear_on_submit=True): 
-    name = st.text_input("Enter full name") 
-    email = st.text_input("Enter email") 
-    message = st.text_area("Message") 
-    age = st.slider("Enter your age", min_value = 10, max_value = 100) 
-    st.write(age)
+with st.form("form1", clear_on_submit=False): 
+    title = st.text_input("Title") 
+    abstract = st.text_area("Abstract (max 300 words)",
+            height=300) 
+    MAX_WORDS = 300
+        import re
+        res = len(re.findall(r"\w+", abstract))
+        if res > MAX_WORDS:
+            st.warning(
+                "⚠️ Your text contains "
+                + str(res)
+                + " words."
+                + " Only the first 300 words will be reviewed."
+            )
+
+            abstract = abstract[:MAX_WORDS]
+    numResults = st.slider(
+            "# of results",
+            min_value=3,
+            max_value=30,
+            value=10,
+            help="You can choose the number of results to display. Between 3 and 30, default number is 10.",
+        )
+    st.write(numResults)
 
     submit = st.form_submit_button("Submit this form")
+
+if not submit_button:
+    st.stop()
 
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
