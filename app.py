@@ -64,15 +64,13 @@ def read_file(filename):
 		df = pd.read_csv(f)
 	return df 
 
-content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100.csv")
+content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 
 try:
     #df = get_UN_data()
     st.dataframe(content)
     with c2: # Map demo
-    	map_data = pd.DataFrame(
-        	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-        	columns=['lat', 'lon'])
+    	map_data = content
 
     	st.subheader('Map Title Here')
     	st.map(map_data)
