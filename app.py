@@ -66,9 +66,9 @@ def get_UN_data():
 
 try:
     df = get_UN_data()
-    st.dataframe(df.head(10))
+    #st.dataframe(df.head(10))
     with c2: # Map demo
-	st.dataframe(projects
+	st.dataframe(df.head(10))
     	map_data = pd.DataFrame(
         	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
         	columns=['lat', 'lon'])
