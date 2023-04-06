@@ -13,32 +13,12 @@ st.set_page_config(
 )
 
 st.title("Find Related Research Info 🐙")
-#st.sidebar.markdown("# Side Bar 🐙")
+
 with st.expander("ℹ️ - About this app", expanded=True):
-
     st.write(
-        """     
--   This app uses embedding created with SPECTER and awarded NSF grants from 2021-2023. Paste and get matching projects and more info.
-	    """
+        """ -   This app uses embedding created with SPECTER and awarded NSF grants from 2021-2023. Paste and get matching projects and more info """
     )
-
     st.markdown("")
-
-#col1, col2, col3= st.columns([2.5, 1, 3])
-
-#with col1:
-    # st.image("logo.png", width=400)
-    #st.title("Find Related Research Info")
-    #st.header("")
-
-
-#sidebar with text box demo
-#add_textbox = st.sidebar.text_input("Research Project Title", key="title")
-# You can access the value at any point with:
-#st.session_state.title
-
-#add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
-#st.session_state.abstract
 
 #Create input form for title and abstract 
 with st.form("form1", clear_on_submit=False): 
@@ -52,13 +32,7 @@ with st.form("form1", clear_on_submit=False):
         MAX_WORDS = 300
         res = len(re.findall(r"\w+", abstract))
         if res > MAX_WORDS:
-            st.warning(
-                "⚠️ Your text contains "
-                + str(res)
-                + " words."
-                + " Only the first 300 words will be reviewed."
-            )
-
+            st.warning("⚠️ Your text contains " + str(res) + " words." + " Only the first 300 words will be reviewed.")
             abstract = abstract[:MAX_WORDS]
     
         numResults = st.slider(
@@ -107,13 +81,13 @@ try:
             )
         )
         st.altair_chart(chart, use_container_width=True)
-    # Map demo
-    map_data = pd.DataFrame(
-        np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-        columns=['lat', 'lon'])
+    with c2: # Map demo
+    	map_data = pd.DataFrame(
+        	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+        	columns=['lat', 'lon'])
 
-    st.subheader('Map Title Here')
-    st.map(map_data)
+    	st.subheader('Map Title Here')
+    	st.map(map_data)
 
 except URLError as e:
     st.error(
