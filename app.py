@@ -45,7 +45,7 @@ col1, col2, col3= st.columns([2.5, 1, 3])
 
 #Create input form for title and abstract 
 with st.form("form1", clear_on_submit=False): 
-    ce, c1, ce, c2, c3 = st.columns([0.07, 2, 0.07, 6, 0.07])
+    ce, c1, ce, c2, c3 = st.columns([0.07, 1, 0.07, 4, 0.07])
     with c1:
         title = st.text_input("Title") 
         abstract = st.text_area("Abstract (max 300 words)",
