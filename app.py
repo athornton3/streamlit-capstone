@@ -9,7 +9,7 @@ import s3fs
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
-#fs = s3fs.S3FileSystem(anon=False)
+fs = s3fs.S3FileSystem(anon=False)
 
 #create data list to feed to model
 #project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
@@ -59,14 +59,19 @@ if not submit_button:
 
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
-def get_UN_data():
-    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com"
-    df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
-    return df.set_index("AwardTitle")
+def read_file(filename):
+    with fs.open(filename) as f:
+        return f.read().decode("utf-8")
+
+#def get_UN_data():
+#    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com"
+#    df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
+#    return df.set_index("AwardTitle")
 
 try:
-    df = get_UN_data()
-    st.dataframe(df)
+	content = read_file("https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com" + "/export_21_22_23_col_rv_100.csv")
+    #df = get_UN_data()
+    #st.dataframe(df)
     with c2: # Map demo
     	map_data = pd.DataFrame(
         	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
