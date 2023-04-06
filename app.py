@@ -67,9 +67,9 @@ def read_file(filename):
 #    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com"
 #    df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
 #    return df.set_index("AwardTitle")
+content = read_file("https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com" + "/export_21_22_23_col_rv_100.csv")
 
 try:
-	content = read_file("https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com" + "/export_21_22_23_col_rv_100.csv")
     #df = get_UN_data()
     #st.dataframe(df)
     with c2: # Map demo
