@@ -60,7 +60,7 @@ if not submit_button:
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
 def read_file(filename):
-    with fs.open(filename, encoding='utf-8') as f:
+	with fs.open(filename, encoding='utf-8') as f:
 		df = pd.read_csv(f)
 	return df 
 
