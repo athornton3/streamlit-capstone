@@ -60,7 +60,7 @@ if not submit_button:
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
 def get_UN_data():
-    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com/export_21_22_23_col_rv_100.csv"
+    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com"
     df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
     return df.set_index("AwardTitle")
 
