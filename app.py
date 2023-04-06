@@ -74,7 +74,7 @@ try:
 
     	st.subheader('Map Title Here')
     	st.map(map_data)
-		st.dataframe(df.head(10))
+	st.dataframe(df)
 
 except URLError as e:
     st.error(
