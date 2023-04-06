@@ -61,7 +61,8 @@ if not submit_button:
 @st.cache_data
 def read_file(filename):
     with fs.open(filename, encoding='utf-8') as f:
-        return d = pd.read_csv(f)
+		df = pd.read_csv(f)
+	return df 
 
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100.csv")
 
