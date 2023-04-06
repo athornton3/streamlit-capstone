@@ -12,7 +12,7 @@ import s3fs
 #fs = s3fs.S3FileSystem(anon=False)
 
 #create data list to feed to model
-project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
+#project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 	
 st.set_page_config(
 	layout="wide",
@@ -62,7 +62,7 @@ if not submit_button:
 def get_UN_data():
     AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com/export_21_22_23_col_rv_100.csv"
     df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
-    return df.set_index("Project")
+    return df.set_index("AwardTitle")
 
 try:
     df = get_UN_data()
