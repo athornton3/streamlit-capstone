@@ -4,6 +4,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import altair as alt
+import re
 
 
 st.set_page_config(
@@ -11,7 +12,7 @@ st.set_page_config(
     page_icon="🐙",
 )
 
-max_width_str = f"max-width: 1400px;"
+max_width_str = f"max-width: 2000px;"
 st.markdown(
         f"""
     <style>
@@ -23,18 +24,18 @@ st.markdown(
         unsafe_allow_html=True,
     )
 
-st.markdown("# Main page 🐙")
+st.title("# Find Related Research Info 🐙")
 #st.sidebar.markdown("# Side Bar 🐙")
 
 col1, col2, col3= st.columns([2.5, 1, 3])
 
 with col1:
     # st.image("logo.png", width=400)
-    st.title("Find Related Research Info")
-    st.header("")
+    #st.title("Find Related Research Info")
+    #st.header("")
 
 
-#text box demo
+#sidebar with text box demo
 #add_textbox = st.sidebar.text_input("Research Project Title", key="title")
 # You can access the value at any point with:
 #st.session_state.title
@@ -52,7 +53,6 @@ with st.form("form1", clear_on_submit=False):
     
         #check for max words
         MAX_WORDS = 300
-        import re
         res = len(re.findall(r"\w+", abstract))
         if res > MAX_WORDS:
             st.warning(
