@@ -26,8 +26,17 @@ st.markdown(
 
 st.title("Find Related Research Info 🐙")
 #st.sidebar.markdown("# Side Bar 🐙")
+with st.expander("ℹ️ - About this app", expanded=True):
 
-col1, col2, col3= st.columns([2.5, 1, 3])
+    st.write(
+        """     
+-   This app uses embedding created with SPECTER and awarded NSF grants from 2021-2023. Paste and get matching projects and more info.
+	    """
+    )
+
+    st.markdown("")
+
+#col1, col2, col3= st.columns([2.5, 1, 3])
 
 #with col1:
     # st.image("logo.png", width=400)
