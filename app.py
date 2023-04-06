@@ -5,12 +5,21 @@ import numpy as np
 import pandas as pd
 import altair as alt
 import re
+import s3fs 
 
+# Create connection object.
+# `anon=False` means not anonymous, i.e. it uses access keys to pull data.
+#fs = s3fs.S3FileSystem(anon=False)
+
+#create data list to feed to model
+project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
+	
 st.set_page_config(
 	layout="wide",
 	page_title="Research Matching",
 	page_icon="🐙",
 )
+
 
 st.title("Find Related Research Info 🐙")
 
@@ -51,37 +60,15 @@ if not submit_button:
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
 def get_UN_data():
-    AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
-    df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
-    return df.set_index("Region")
+    AWS_BUCKET_URL = "https://streamlitbucketcapstoneajt.s3.us-east-2.amazonaws.com/export_21_22_23_col_rv_100.csv"
+    df = pd.read_csv(AWS_BUCKET_URL + "/export_21_22_23_col_rv_100.csv")
+    return df.set_index("Project")
 
 try:
     df = get_UN_data()
-    countries = st.multiselect(
-        "Choose countries", list(df.index), ["China", "United States of America"]
-    )
-    if not countries:
-        st.error("Please select at least one country.")
-    else:
-        data = df.loc[countries]
-        data /= 1000000.0
-        st.write("### Gross Agricultural Production ($B)", data.sort_index())
-
-        data = data.T.reset_index()
-        data = pd.melt(data, id_vars=["index"]).rename(
-            columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-        )
-        chart = (
-            alt.Chart(data)
-            .mark_area(opacity=0.3)
-            .encode(
-                x="year:T",
-                y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-                color="Region:N",
-            )
-        )
-        st.altair_chart(chart, use_container_width=True)
+    st.dataframe(df.head(10))
     with c2: # Map demo
+	st.dataframe(projects
     	map_data = pd.DataFrame(
         	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
         	columns=['lat', 'lon'])
