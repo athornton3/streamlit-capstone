@@ -6,6 +6,7 @@ import pandas as pd
 import altair as alt
 import re
 import s3fs 
+import pickle
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -63,9 +64,14 @@ def read_file(filename):
 	with fs.open(filename, encoding='utf-8') as f:
 		df = pd.read_csv(f)
 	return df 
-
+@st.cache_data
+def get_embeddings(filename):
+	with fs.open(filename) as f:
+		df = pickle.loads(filename)
+	return df 
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 papers_df = content[['latitude','longitude']].dropna()
+embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pickle")
 
 try:
     #df = get_UN_data()
