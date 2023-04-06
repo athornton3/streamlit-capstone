@@ -7,8 +7,8 @@ import altair as alt
 
 
 st.set_page_config(
-    page_title="BERT Keyword Extractor",
-    page_icon="🎈",
+    page_title="Research Matching",
+    page_icon="🐙",
 )
 
 max_width_str = f"max-width: 1400px;"
@@ -23,8 +23,8 @@ st.markdown(
         unsafe_allow_html=True,
     )
 
-st.markdown("# Main page 🎈")
-st.sidebar.markdown("# Side Bar 🎈")
+st.markdown("# Main page 🐙")
+#st.sidebar.markdown("# Side Bar 🐙")
 
 col1, col2, col3= st.columns([2.5, 1, 3])
 
@@ -35,42 +35,44 @@ with col1:
 
 
 #text box demo
-add_textbox = st.sidebar.text_input("Research Project Title", key="title")
+#add_textbox = st.sidebar.text_input("Research Project Title", key="title")
 # You can access the value at any point with:
-st.session_state.title
+#st.session_state.title
 
-add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
-st.session_state.abstract
+#add_textbox2 = st.sidebar.text_input("Research Project Abstract", key="abstract")
+#st.session_state.abstract
 
 #Create input form for title and abstract 
 with st.form("form1", clear_on_submit=False): 
-    title = st.text_input("Title") 
-    abstract = st.text_area("Abstract (max 300 words)",
-            height=300) 
+    ce, c1, ce, c2, c3 = st.columns([0.07, 2, 0.07, 4, 0.07])
+    with c1:
+        title = st.text_input("Title") 
+        abstract = st.text_area("Abstract (max 300 words)",
+                height=300) 
     
-    #check for max words
-    MAX_WORDS = 300
-    import re
-    res = len(re.findall(r"\w+", abstract))
-    if res > MAX_WORDS:
-        st.warning(
+        #check for max words
+        MAX_WORDS = 300
+        import re
+        res = len(re.findall(r"\w+", abstract))
+        if res > MAX_WORDS:
+            st.warning(
                 "⚠️ Your text contains "
                 + str(res)
                 + " words."
                 + " Only the first 300 words will be reviewed."
             )
 
-        abstract = abstract[:MAX_WORDS]
+            abstract = abstract[:MAX_WORDS]
     
-    numResults = st.slider(
+        numResults = st.slider(
             "Number of results",
             min_value=3,
             max_value=30,
             value=10,
             help="You can choose the number of results to display. Between 3 and 30, default number is 10.",
-        )
+            )
 
-    submit_button = st.form_submit_button("Submit title/abstract")
+        submit_button = st.form_submit_button("Submit title/abstract")
 
 if not submit_button:
     st.stop()
