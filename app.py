@@ -29,7 +29,7 @@ st.title("# Find Related Research Info 🐙")
 
 col1, col2, col3= st.columns([2.5, 1, 3])
 
-with col1:
+#with col1:
     # st.image("logo.png", width=400)
     #st.title("Find Related Research Info")
     #st.header("")
