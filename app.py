@@ -6,23 +6,11 @@ import pandas as pd
 import altair as alt
 import re
 
-
 st.set_page_config(
-    page_title="Research Matching",
-    page_icon="🐙",
+	layout="wide",
+	page_title="Research Matching",
+	page_icon="🐙",
 )
-
-max_width_str = f"max-width: 2000px;"
-st.markdown(
-        f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>    
-    """,
-        unsafe_allow_html=True,
-    )
 
 st.title("Find Related Research Info 🐙")
 #st.sidebar.markdown("# Side Bar 🐙")
