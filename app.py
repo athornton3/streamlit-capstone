@@ -66,7 +66,7 @@ def read_file(filename):
 	return df 
 @st.cache_data
 def get_embeddings(filename):
-	with fs.open(filename) as f:
+	with fs.open(filename, 'rb') as f:
 		df = pickle.loads(f)
 	return df 
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
