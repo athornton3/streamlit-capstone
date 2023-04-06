@@ -5,8 +5,34 @@ import numpy as np
 import pandas as pd
 import altair as alt
 
+
+st.set_page_config(
+    page_title="BERT Keyword Extractor",
+    page_icon="🎈",
+)
+
+max_width_str = f"max-width: 1400px;"
+st.markdown(
+        f"""
+    <style>
+    .reportview-container .main .block-container{{
+        {max_width_str}
+    }}
+    </style>    
+    """,
+        unsafe_allow_html=True,
+    )
+
 st.markdown("# Main page 🎈")
 st.sidebar.markdown("# Side Bar 🎈")
+
+col1, col2, col3= st.columns([2.5, 1, 3])
+
+with col1:
+    # st.image("logo.png", width=400)
+    st.title("Find Related Research Info")
+    st.header("")
+
 
 #text box demo
 add_textbox = st.sidebar.text_input("Research Project Title", key="title")
