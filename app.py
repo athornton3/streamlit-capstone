@@ -27,7 +27,7 @@ st.markdown(
 st.title("Find Related Research Info 🐙")
 #st.sidebar.markdown("# Side Bar 🐙")
 
-#col1, col2, col3= st.columns([2.5, 1, 3])
+col1, col2, col3= st.columns([2.5, 1, 3])
 
 #with col1:
     # st.image("logo.png", width=400)
