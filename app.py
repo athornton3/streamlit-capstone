@@ -66,7 +66,7 @@ def get_UN_data():
 
 try:
     df = get_UN_data()
-    #st.dataframe(df.head(10))
+    st.dataframe(df)
     with c2: # Map demo
     	map_data = pd.DataFrame(
         	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
@@ -74,7 +74,6 @@ try:
 
     	st.subheader('Map Title Here')
     	st.map(map_data)
-	st.dataframe(df)
 
 except URLError as e:
     st.error(
