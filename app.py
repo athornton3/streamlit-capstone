@@ -73,7 +73,7 @@ try:
     with c2: # Map demo
     	map_data = papers_df
 
-    	st.subheader('Map Title Here')
+    	st.subheader('Matching Research Institutions')
     	st.map(map_data)
 
 except URLError as e:
