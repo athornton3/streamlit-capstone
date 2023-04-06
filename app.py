@@ -65,12 +65,13 @@ def read_file(filename):
 	return df 
 
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
+papers_df = content[['latitude','longitude']].dropna()
 
 try:
     #df = get_UN_data()
     st.dataframe(content)
     with c2: # Map demo
-    	map_data = content
+    	map_data = papers_df
 
     	st.subheader('Map Title Here')
     	st.map(map_data)
