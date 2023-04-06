@@ -68,13 +68,13 @@ try:
     df = get_UN_data()
     #st.dataframe(df.head(10))
     with c2: # Map demo
-		st.dataframe(df.head(10))
     	map_data = pd.DataFrame(
         	np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
         	columns=['lat', 'lon'])
 
     	st.subheader('Map Title Here')
     	st.map(map_data)
+		st.dataframe(df.head(10))
 
 except URLError as e:
     st.error(
