@@ -69,9 +69,12 @@ def get_embeddings(filename):
 	with fs.open(filename, 'rb') as f:
 		df = pickle.loads(f)
 	return df 
+
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 papers_df = content[['latitude','longitude']].dropna()
-embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pickle")
+
+#TODO -- check write method in jupyter
+#embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pickle")
 
 try:
     #df = get_UN_data()
