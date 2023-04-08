@@ -8,7 +8,7 @@ import re
 import s3fs 
 import pickle
 from datasets import load_dataset
-from sentence_transformers import SentenceTransformer, util
+#from sentence_transformers import SentenceTransformer, util
 
 
 # Create connection object.
