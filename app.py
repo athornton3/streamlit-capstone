@@ -112,12 +112,11 @@ try:
     df = search_projects(title,abstract)
     st.dataframe(df)
     with c2: # Map demo
-		matches_df = df[['latitude','longitude']].dropna()
-    	map_data = matches_df
-
-    	st.subheader('Matching Research Institutions')
-    	st.map(map_data)
-
+        matches_df = df[['latitude','longitude']].dropna()
+        map_data = matches_df
+        st.subheader('Matching Research Institutions')
+        st.map(map_data)
+		
 except URLError as e:
     st.error(
         """
