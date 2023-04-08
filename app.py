@@ -81,7 +81,7 @@ def read_embeddings(filename):
 
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
-embeddings = read_file("streamlitbucketcapstoneajt/my_embeddings.pkl")
+embeddings = read_file("streamlitbucketcapstoneajt/my-embeddings.pkl")
 #embeddings = load_dataset('grimkitty/embeddings') 
 #data = pd.read_csv("data/file.csv")   
 #embeddings = Dataset.from_pandas(data)
