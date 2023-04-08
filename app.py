@@ -6,8 +6,8 @@ import pandas as pd
 import altair as alt
 import re
 import s3fs 
-import pickle
-from datasets import Dataset
+#import pickle
+#from datasets import Dataset
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
 
@@ -76,7 +76,7 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 #st.dataframe(embeddings)
 model = SentenceTransformer('allenai-specter')
 embeddings = model.encode(project_texts, convert_to_tensor=True)
-papers_df = content[['latitude','longitude']].dropna()
+papers_df = projects_df[['latitude','longitude']].dropna()
 
 #query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
 #			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
