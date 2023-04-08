@@ -7,7 +7,7 @@ import altair as alt
 import re
 import s3fs 
 import pickle
-import torch
+from datasets import load_dataset
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -76,7 +76,7 @@ papers_df = content[['latitude','longitude']].dropna()
 
 #TODO -- check write method in jupyter
 #embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
-embeddings = torch.load('data/file.pt') 
+embeddings = load_dataset('data/file.csv') 
 
 try:
     #df = get_UN_data()
