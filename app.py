@@ -73,11 +73,11 @@ def get_embeddings(_model, data):
 
 @st.cache_data
 def read_embeddings(filename):
-	with fs.open(filename, 'rb') as pkl:
-    	cache_data = pickle.load(pkl)
-    	project_texts = cache_data['sentences']
-    	corpus_embeddings = cache_data['embeddings']
-	return corpus_embeddings
+    with fs.open(filename, 'rb') as pkl:
+        cache_data = pickle.load(pkl)
+        project_texts = cache_data['sentences']
+        corpus_embeddings = cache_data['embeddings']
+    return corpus_embeddings
 
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
