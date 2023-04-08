@@ -98,7 +98,6 @@ def search_projects(title, abstract):
 	for prj in results[0]:
 		related_project = projects_df.loc[prj['corpus_id']]
 		df.append(related_project)
-
     return df
 
 try:
