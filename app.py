@@ -74,8 +74,10 @@ content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlo
 papers_df = content[['latitude','longitude']].dropna()
 
 #TODO -- check write method in jupyter
-embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
-
+#embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
+with open('streamlit-capstone/data/corpus_embedding.pickle','rb') as f:
+	df = pickle.loads(f)
+embeddings = df
 try:
     #df = get_UN_data()
     st.dataframe(content)
