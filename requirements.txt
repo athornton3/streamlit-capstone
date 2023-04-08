@@ -1,2 +1,5 @@
 # requirements.txt
 s3fs==2023.3.0
+
+-f https://data.pyg.org/whl/torch-1.13.0+cpu.html
+torch-scatter
