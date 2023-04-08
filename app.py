@@ -85,7 +85,6 @@ papers_df = content[['latitude','longitude']].dropna()
 #			       'In the continuous version, we show experimentally.', convert_to_tensor=True)
 
 #function to take title & abstract and search corpus for similar projects
-@st.cache
 def search_projects(title, abstract):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
 
