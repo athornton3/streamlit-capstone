@@ -97,9 +97,8 @@ def search_projects(title, abstract):
     df = pd.DataFrame([])
     for prj in results[0]:
         related_project = projects_df.loc[prj['corpus_id']]
-        df.append(related_project)
-    res = pd.concat(df)
-    return res 
+        df = df.append(related_project)
+    return df
 
 try:
     st.dataframe(search_projects(title,abstract))
