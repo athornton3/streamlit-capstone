@@ -94,12 +94,12 @@ def search_projects(title, abstract, n):
     scores = []
     rows = []
     for prj in results[0]:
-        #related_project = projects_df.loc[prj['corpus_id']]
-        rows.append(projects_df.loc[prj['corpus_id']])
+        related_project = projects_df.loc[prj['corpus_id']]
+        #rows.append(projects_df.loc[prj['corpus_id']])
         scores.append(prj['score'])
-        #df = df.append(related_project)
-    #df.insert(0, "cosim_score", scores)
-    df = pd.concat(rows, scores)
+        df = df.append(related_project)
+    df.insert(0, "cosim_score", scores)
+    #df = pd.concat(rows, scores)
     return df
 
 try:
