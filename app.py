@@ -90,7 +90,7 @@ def search_projects(title, abstract, n):
 
     results = util.semantic_search(query_embedding, embeddings, top_k = n)
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
-    df = pd.DataFrame()
+    #df = pd.DataFrame()
     scores = []
     rows = []
     for prj in results[0]:
@@ -99,7 +99,7 @@ def search_projects(title, abstract, n):
         scores.append(prj['score'])
         #df = df.append(related_project)
     #df.insert(0, "cosim_score", scores)
-    df.concat(rows, scores)
+    df = pd.concat(rows, scores)
     return df
 
 try:
