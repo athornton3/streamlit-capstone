@@ -81,7 +81,7 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 #embeddings = Dataset.from_pandas(data)
 #st.dataframe(embeddings)
 model = SentenceTransformer('allenai-specter')
-embeddings = get_embeddings(project_texts)
+embeddings = get_embeddings(model, project_texts)
 
 papers_df = projects_df[['latitude','longitude']].dropna()
 
