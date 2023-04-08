@@ -8,6 +8,8 @@ import re
 import s3fs 
 import pickle
 from datasets import load_dataset
+from sentence_transformers import SentenceTransformer, util
+
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -77,6 +79,16 @@ papers_df = content[['latitude','longitude']].dropna()
 #TODO -- check write method in jupyter
 #embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 embeddings = load_dataset('grimkitty/embeddings') 
+model = SentenceTransformer('allenai-specter')
+query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
+			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
+			       'resulting in state-of-the-art performance on various tasks. We propose a very fast variational information '+
+			       'bottleneck (VIB) method to nonlinearly compress these embeddings, keeping only the information that helps a '+
+			       'discriminative parser. We compress each word embedding to either a discrete tag or a continuous vector. '+
+			       'In the discrete version, our automatically compressed tags form an alternative tag set: '+
+			       'we show experimentally that our tags capture most of the information in traditional POS tag annotations, '+
+			       'but our tag sequences can be parsed more accurately at the same level of tag granularity. '+
+			       'In the continuous version, we show experimentally.', convert_to_tensor=True)
 
 try:
     #df = get_UN_data()
