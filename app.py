@@ -68,6 +68,12 @@ def read_file(filename):
 	with fs.open(filename, encoding='utf-8') as f:
 		df = pd.read_csv(f)
 	return df 
+
+@st.cache_data
+def get_embeddings(model, data):
+	embeddings = model.encode(data, convert_to_tensor=True)
+	return embeddings
+
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 #embeddings = load_dataset('grimkitty/embeddings') 
@@ -75,7 +81,8 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 #embeddings = Dataset.from_pandas(data)
 #st.dataframe(embeddings)
 model = SentenceTransformer('allenai-specter')
-embeddings = model.encode(project_texts, convert_to_tensor=True)
+embeddings = get_embeddings(project_texts)
+
 papers_df = projects_df[['latitude','longitude']].dropna()
 
 #query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
