@@ -80,12 +80,9 @@ def read_embeddings(filename):
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
-#embeddings = load_dataset('grimkitty/embeddings') 
-#data = pd.read_csv("data/file.csv")   
-#embeddings = Dataset.from_pandas(data)
-#st.dataframe(embeddings)
+
 model = SentenceTransformer('allenai-specter')
-#embeddings = get_embeddings(model, project_texts)
+#embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
