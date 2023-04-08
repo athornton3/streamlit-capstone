@@ -76,7 +76,7 @@ papers_df = content[['latitude','longitude']].dropna()
 
 #TODO -- check write method in jupyter
 #embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
-embeddings = load_dataset('data/file.csv') 
+embeddings = load_dataset('grimkitty/embeddings') 
 
 try:
     #df = get_UN_data()
