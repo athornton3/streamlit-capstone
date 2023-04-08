@@ -69,7 +69,9 @@ def read_file(filename):
 		df = pd.read_csv(f)
 	return df 
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
-embeddings = load_dataset('grimkitty/embeddings') 
+#embeddings = load_dataset('grimkitty/embeddings') 
+data = pd.read_csv("data/file.csv")   
+embeddings = Dataset.from_pandas(data)
 model = SentenceTransformer('allenai-specter')
 
 papers_df = content[['latitude','longitude']].dropna()
