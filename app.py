@@ -6,7 +6,7 @@ import pandas as pd
 import altair as alt
 import re
 import s3fs 
-#import pickle
+import pickle
 #from datasets import Dataset
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
@@ -71,14 +71,23 @@ def get_embeddings(_model, data):
 	embeddings = model.encode(data, convert_to_tensor=True)
 	return embeddings
 
+@st.cache_data
+def read_embeddings(filename):
+	with fs.open(filename, 'rb') as pkl:
+    	cache_data = pickle.load(pkl)
+    	project_texts = cache_data['sentences']
+    	corpus_embeddings = cache_data['embeddings']
+	return corpus_embeddings
+
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
+embeddings = read_file("streamlitbucketcapstoneajt/my_embeddings.pkl")
 #embeddings = load_dataset('grimkitty/embeddings') 
 #data = pd.read_csv("data/file.csv")   
 #embeddings = Dataset.from_pandas(data)
 #st.dataframe(embeddings)
 model = SentenceTransformer('allenai-specter')
-embeddings = get_embeddings(model, project_texts)
+#embeddings = get_embeddings(model, project_texts)
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
