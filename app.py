@@ -15,9 +15,6 @@ from sentence_transformers import SentenceTransformer, util
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
 fs = s3fs.S3FileSystem(anon=False)
-
-#create data list to feed to model
-#project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 	
 st.set_page_config(
 	layout="wide",
@@ -83,22 +80,12 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 model = SentenceTransformer('allenai-specter')
 embeddings = get_embeddings(model, project_texts)
 
-#query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
-#			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
-#			       'resulting in state-of-the-art performance on various tasks. We propose a very fast variational information '+
-#			       'bottleneck (VIB) method to nonlinearly compress these embeddings, keeping only the information that helps a '+
-#			       'discriminative parser. We compress each word embedding to either a discrete tag or a continuous vector. '+
-#			       'In the discrete version, our automatically compressed tags form an alternative tag set: '+
-#			       'we show experimentally that our tags capture most of the information in traditional POS tag annotations, '+
-#			       'but our tag sequences can be parsed more accurately at the same level of tag granularity. '+
-#			       'In the continuous version, we show experimentally.', convert_to_tensor=True)
-
 #function to take title & abstract and search corpus for similar projects
-def search_projects(title, abstract):
+def search_projects(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
 
-    results = util.semantic_search(query_embedding, embeddings, top_k = 10)
-    results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = 10)
+    results = util.semantic_search(query_embedding, embeddings, top_k = n)
+    results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame([])
     scores = []
     for prj in results[0]:
@@ -109,7 +96,7 @@ def search_projects(title, abstract):
     return df
 
 try:
-    df = search_projects(title,abstract)
+    df = search_projects(title,abstract, numResults)
     st.dataframe(df)
     with c2: # Map demo
         matches_df = df[['latitude','longitude']].dropna()
