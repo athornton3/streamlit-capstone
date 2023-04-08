@@ -72,6 +72,7 @@ content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlo
 #embeddings = load_dataset('grimkitty/embeddings') 
 data = pd.read_csv("data/file.csv")   
 embeddings = Dataset.from_pandas(data)
+st.dataframe(embeddings)
 model = SentenceTransformer('allenai-specter')
 
 papers_df = content[['latitude','longitude']].dropna()
