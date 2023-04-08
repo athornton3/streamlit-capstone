@@ -74,7 +74,7 @@ content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlo
 papers_df = content[['latitude','longitude']].dropna()
 
 #TODO -- check write method in jupyter
-#embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pickle")
+embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 
 try:
     #df = get_UN_data()
