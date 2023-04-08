@@ -64,37 +64,38 @@ if not submit_button:
 
 # data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
 @st.cache_data
-def read_file(filename):
-	with fs.open(filename, encoding='utf-8') as f:
-		df = pd.read_csv(f)
-	return df 
-@st.cache_data
-def get_embeddings(filename):
-	with fs.open(filename, 'rb') as f:
-		df = pickle.loads(f)
-	return df 
-
 content = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
-papers_df = content[['latitude','longitude']].dropna()
-
-#TODO -- check write method in jupyter
-#embeddings = get_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 embeddings = load_dataset('grimkitty/embeddings') 
 model = SentenceTransformer('allenai-specter')
-query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
-			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
-			       'resulting in state-of-the-art performance on various tasks. We propose a very fast variational information '+
-			       'bottleneck (VIB) method to nonlinearly compress these embeddings, keeping only the information that helps a '+
-			       'discriminative parser. We compress each word embedding to either a discrete tag or a continuous vector. '+
-			       'In the discrete version, our automatically compressed tags form an alternative tag set: '+
-			       'we show experimentally that our tags capture most of the information in traditional POS tag annotations, '+
-			       'but our tag sequences can be parsed more accurately at the same level of tag granularity. '+
-			       'In the continuous version, we show experimentally.', convert_to_tensor=True)
+
+papers_df = content[['latitude','longitude']].dropna()
+
+#query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
+#			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
+#			       'resulting in state-of-the-art performance on various tasks. We propose a very fast variational information '+
+#			       'bottleneck (VIB) method to nonlinearly compress these embeddings, keeping only the information that helps a '+
+#			       'discriminative parser. We compress each word embedding to either a discrete tag or a continuous vector. '+
+#			       'In the discrete version, our automatically compressed tags form an alternative tag set: '+
+#			       'we show experimentally that our tags capture most of the information in traditional POS tag annotations, '+
+#			       'but our tag sequences can be parsed more accurately at the same level of tag granularity. '+
+#			       'In the continuous version, we show experimentally.', convert_to_tensor=True)
+
+#function to take title & abstract and search corpus for similar projects
+@st.cache
+def search_projects(title, abstract):
+    query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
+
+    results = util.semantic_search(query_embedding, embeddings, top_k = 10)
+    results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = 10)
+    
+    return results
 
 try:
     #df = get_UN_data()
+	st.dataframe(search_projects(title, abstract))
     st.dataframe(content)
     with c2: # Map demo
+		
     	map_data = papers_df
 
     	st.subheader('Matching Research Institutions')
