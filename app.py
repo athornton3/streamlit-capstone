@@ -69,7 +69,7 @@ def read_file(filename):
 		df = pd.read_csv(f)
 	return df 
 
-@st.cache_data
+@st.cache
 def get_embeddings(model, data):
 	embeddings = model.encode(data, convert_to_tensor=True)
 	return embeddings
