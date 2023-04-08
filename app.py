@@ -7,7 +7,7 @@ import altair as alt
 import re
 import s3fs 
 import pickle
-from datasets import load_dataset
+from datasets import Dataset
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
 
