@@ -83,8 +83,6 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 model = SentenceTransformer('allenai-specter')
 embeddings = get_embeddings(model, project_texts)
 
-papers_df = projects_df[['latitude','longitude']].dropna()
-
 #query_embedding = model.encode('Specializing Word Embeddings (for Parsing) by Information Bottleneck'+'[SEP]'+
 #			       'Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, '+
 #			       'resulting in state-of-the-art performance on various tasks. We propose a very fast variational information '+
@@ -111,10 +109,11 @@ def search_projects(title, abstract):
     return df
 
 try:
-    st.dataframe(search_projects(title,abstract))
+    df = search_projects(title,abstract)
+	st.dataframe(df)
     with c2: # Map demo
-		
-    	map_data = papers_df
+		matches_df = df[['latitude','longitude']].dropna()
+    	map_data = matches_df
 
     	st.subheader('Matching Research Institutions')
     	st.map(map_data)
