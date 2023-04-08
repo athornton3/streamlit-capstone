@@ -107,7 +107,7 @@ def search_projects(title, abstract):
         related_project = projects_df.loc[prj['corpus_id']]
         scores.append(prj['score'])
         df = df.append(related_project)
-    df.insert(0,"cosim_score",scores,true)
+    df.insert(0,"cosim_score",scores,True)
     return df
 
 try:
