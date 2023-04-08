@@ -96,7 +96,6 @@ def search_projects(title, abstract):
     return results
 
 try:
-	#st.dataframe(search_projects(title, abstract))
     st.dataframe(search_projects(title,abstract))
     with c2: # Map demo
 		
