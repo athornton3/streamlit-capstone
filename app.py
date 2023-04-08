@@ -73,8 +73,9 @@ def get_embeddings(_model, data):
 
 @st.cache_data
 def read_embeddings(filename):
-    with fs.open(filename, 'rb') as pkl:
+    with fs.open(filename, 'r') as pkl:
         cache_data = pickle.load(pkl)
+		#f.read().decode("utf-8")
         project_texts = cache_data['sentences']
         corpus_embeddings = cache_data['embeddings']
     return corpus_embeddings
