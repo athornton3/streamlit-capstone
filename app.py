@@ -95,8 +95,7 @@ def search_projects(title, abstract):
     return results
 
 try:
-    #df = get_UN_data()
-	st.dataframe(search_projects(title, abstract))
+    st.dataframe(search_projects(title, abstract))
     st.dataframe(content)
     with c2: # Map demo
 		
