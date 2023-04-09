@@ -10,7 +10,7 @@ import pickle
 #from datasets import Dataset
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
-
+import leafmap.foliumap as leafmap
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -110,7 +110,10 @@ try:
         map_data = matches_df
         st.subheader('Matching Research Institutions')
         st.map(map_data)
-		
+
+	m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
+	m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude")
+	m.Popup()
 except URLError as e:
     st.error(
         """
