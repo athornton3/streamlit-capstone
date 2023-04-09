@@ -1,3 +1,4 @@
 streamlit
 s3fs
 sentence_transformers
+leafmap
