@@ -11,6 +11,7 @@ import pickle
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
 import leafmap.foliumap as leafmap
+from streamlit_folium import folium_static
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -112,7 +113,7 @@ try:
         #st.map(map_data)
         m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
         m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude")
-        m
+        folium_static(m)
 		
 except URLError as e:
     st.error(
