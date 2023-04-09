@@ -80,10 +80,11 @@ def read_embeddings(filename):
 
 projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
+
 embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
+#embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
 model = SentenceTransformer('allenai-specter')
-#embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
@@ -112,7 +113,7 @@ try:
         st.subheader('Matching Research Institutions')
         #st.map(map_data)
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
-        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Institution-Name')
+        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Institution-Name') #min-width and max-width for the popup
         folium_static(m)
 		
 except URLError as e:
