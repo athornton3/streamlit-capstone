@@ -106,12 +106,12 @@ try:
     df = search_projects(title,abstract, numResults)
     st.dataframe(df)
     with c2: # Map demo
-        matches_df = df[['latitude','longitude', 'Institution-Name']].dropna()
+        matches_df = df[['latitude','longitude']].dropna()
         map_data = matches_df
         st.subheader('Matching Research Institutions')
         #st.map(map_data)
         m = leafmap.Map(center=(-31.416668, -64.183334), zoom=5)
-        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", popup="Institution-Name")
+        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude")
         m
 		
 except URLError as e:
