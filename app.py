@@ -112,7 +112,7 @@ try:
         st.subheader('Matching Research Institutions')
         #st.map(map_data)
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
-        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", popup='Institution-Name')
+        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Institution-Name')
         folium_static(m)
 		
 except URLError as e:
