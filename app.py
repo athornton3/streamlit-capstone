@@ -105,7 +105,7 @@ def search_projects(title, abstract, n):
 try:
     df = search_projects(title,abstract, numResults)
     st.dataframe(df)
-	with c2: # Map demo
+    with c2: # Map demo
         matches_df = df[['latitude','longitude']].dropna()
         map_data = matches_df
         st.subheader('Matching Research Institutions')
