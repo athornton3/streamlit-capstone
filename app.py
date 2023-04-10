@@ -68,7 +68,7 @@ def read_file(filename):
 	return df 
 
 @st.cache_data
-def load_model(filename):
+def load_model():
 	return SentenceTransformer('allenai-specter')
 
 @st.cache_data
