@@ -68,6 +68,10 @@ def read_file(filename):
 	return df 
 
 @st.cache_data
+def load_model(filename):
+	return SentenceTransformer('allenai-specter')
+
+@st.cache_data
 def get_embeddings(_model, data):
 	embeddings = model.encode(data, convert_to_tensor=True)
 	return embeddings
@@ -84,7 +88,7 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 #embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
-model = SentenceTransformer('allenai-specter')
+model = load_model()
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
