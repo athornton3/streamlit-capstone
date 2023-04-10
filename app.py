@@ -7,7 +7,6 @@ import altair as alt
 import re
 import s3fs 
 import pickle
-#from datasets import Dataset
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
 import leafmap.foliumap as leafmap
@@ -22,7 +21,6 @@ st.set_page_config(
 	page_title="Research Matching",
 	page_icon="🐙",
 )
-
 
 st.title("Find Related Research Info 🐙")
 
@@ -60,7 +58,7 @@ with st.form("form1", clear_on_submit=False):
 if not submit_button:
     st.stop()
 
-# data fetch and use check  instructions here https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3
+# data fetch from s3
 @st.cache_data
 def read_file(filename):
 	with fs.open(filename, encoding='utf-8') as f:
@@ -68,14 +66,16 @@ def read_file(filename):
 	return df 
 
 @st.cache_data
-def load_model():
-	return SentenceTransformer('allenai-specter')
+def load_model(tf):
+	return SentenceTransformer(tf)
 
+# create embeddings - slow and resource intensive
 @st.cache_data
 def get_embeddings(_model, data):
 	embeddings = model.encode(data, convert_to_tensor=True)
 	return embeddings
 
+# read stored embeddings fom s3
 @st.cache_data
 def read_embeddings(filename):
     with fs.open(filename, 'rb') as pkl:
@@ -88,7 +88,7 @@ project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['A
 embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 #embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
-model = load_model()
+model = load_model('allenai-specter')
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
@@ -98,24 +98,20 @@ def search_projects(title, abstract, n):
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = []
-    rows = []
     for prj in results[0]:
         related_project = projects_df.loc[prj['corpus_id']]
-        #rows.append(projects_df.loc[prj['corpus_id']])
         scores.append(prj['score'])
-        df = df.append(related_project)
+        df = df.append(related_project) #deprecated but couldn't get pd.concat to work
     df.insert(0, "cosim_score", scores)
-    #df = pd.concat(rows, scores)
     return df
 
 try:
-    df = search_projects(title,abstract, numResults)
+    df = search_projects(title, abstract, numResults)
     st.dataframe(df)
     with c2: # Map demo
-        matches_df = df[['latitude','longitude', 'Institution-Name']].dropna()
-        map_data = matches_df
+        map_data = df[['latitude','longitude','Institution-Name']].dropna()
         st.subheader('Matching Research Institutions')
-        #st.map(map_data)
+	
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
         m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Institution-Name') #min-width and max-width for the popup
         #add_text and add_legend https://leafmap.org/foliumap/#leafmap.foliumap.Map.add_legend
@@ -129,7 +125,5 @@ except URLError as e:
     """
         % e.reason
     )
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+
+#st.button("Re-run")
