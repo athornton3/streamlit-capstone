@@ -7,6 +7,7 @@ import altair as alt
 import re
 import s3fs 
 import boto3
+import io
 import pickle
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
@@ -106,7 +107,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		#csvStringIO = StringIO(records)
-		df = pd.read_csv(records, sep=",")
+		df = pd.read_csv(io.StringIO(records), sep=",")
 		st.dataframe(df)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
