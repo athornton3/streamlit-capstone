@@ -126,6 +126,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
+		df.columns = columns
 		st.dataframe(df)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
