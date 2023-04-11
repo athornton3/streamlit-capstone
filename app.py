@@ -127,11 +127,7 @@ for event in resp['Payload']:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
 		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True)
-		#df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True)
-		#hold = columns.columns.to_list()
-		#hold = hold.insert(0,"test")
 		df.columns = columns.columns.to_list()
-		#df = pd.concat([df, list],ignore_index = True)
 		st.dataframe(df)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
@@ -146,6 +142,7 @@ def search_projects(title, abstract, n):
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = []
+	st.write(results[0][:,['corpus_id']])
     for prj in results[0]:
         related_project = projects_df.loc[prj['corpus_id']]
         scores.append(prj['score'])
