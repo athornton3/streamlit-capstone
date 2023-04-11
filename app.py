@@ -94,6 +94,16 @@ model = load_model('allenai-specter')
 
 s3 = boto3.client('s3')
 
+#select column headers
+#resp = s3.select_object_content(
+#    Bucket='streamlitbucketcapstoneajt',
+#    Key='export_21_22_23_col_rv_100_latlong.csv',
+#    ExpressionType='SQL',
+#    Expression="SELECT * FROM s3object s limit 1",
+#    InputSerialization = {'CSV': {"FileHeaderInfo": "None"}, 'CompressionType': 'NONE'},
+#    OutputSerialization = {'CSV': {}},
+#)
+
 resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
     Key='export_21_22_23_col_rv_100_latlong.csv',
