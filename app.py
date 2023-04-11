@@ -108,9 +108,10 @@ for event in resp['Payload']:
 		csvStringIO = StringIO(records)
 		df = pd.read_csv(csvStringIO, sep=",")
 		st.dataframe(df)
-    elif 'Stats' in event:
-        statsDetails = event['Stats']['Details']
-        st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
+	elif 'Stats' in event:
+		statsDetails = event['Stats']['Details']
+		st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
+
 			
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
