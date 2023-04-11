@@ -142,7 +142,8 @@ def search_projects(title, abstract, n):
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = []
-    st.write(results[0][:,['corpus_id']])
+	column_index = results[0].columns.get_loc('corpus_id')
+    st.write(results[0][:,column_index])
     for prj in results[0]:
         related_project = projects_df.loc[prj['corpus_id']]
         scores.append(prj['score'])
