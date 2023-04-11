@@ -103,16 +103,15 @@ resp = s3.select_object_content(
 )
 
 for event in resp['Payload']:
-    if 'Records' in event:
+	if 'Records' in event:
         records = event['Records']['Payload'].decode('utf-8')
 		csvStringIO = StringIO(records)
 		df = pd.read_csv(csvStringIO, sep=",")
-        st.dataframe(df)
+		st.dataframe(df)
     elif 'Stats' in event:
         statsDetails = event['Stats']['Details']
         st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
-    	#st.markdown("")
-
+			
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
