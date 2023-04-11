@@ -1,4 +1,3 @@
-streamlit
 streamlit-folium
 s3fs
 sentence_transformers
