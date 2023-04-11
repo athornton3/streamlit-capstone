@@ -116,7 +116,7 @@ resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
     Key='export_21_22_23_col_rv_100_latlong.csv',
     ExpressionType='SQL',
-    Expression="SELECT * FROM s3object s where s.\"Unnamed: 0.1\" in ('0','80')",
+    Expression="SELECT * FROM s3object s where s.\"Unnamed: 0.1\" in ('5','80')",
     InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
     OutputSerialization = {'CSV': {}},
 )
