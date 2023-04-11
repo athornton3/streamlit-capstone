@@ -105,7 +105,7 @@ resp = s3.select_object_content(
 for event in resp['Payload']:
     if 'Records' in event:
         records = event['Records']['Payload'].decode('utf-8')
-        st.database(records)
+        st.dataframe(records)
     elif 'Stats' in event:
         statsDetails = event['Stats']['Details']
         st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
