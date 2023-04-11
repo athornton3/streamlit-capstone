@@ -129,7 +129,7 @@ for event in resp['Payload']:
 		df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True)
 		#hold = columns.columns.to_list()
 		#hold = hold.insert(0,"test")
-		df.columns = ["test"]+columns.columns.to_list()
+		df.columns = columns.columns.to_list()
 		#df = pd.concat([df, list],ignore_index = True)
 		st.dataframe(df)
 	elif 'Stats' in event:
