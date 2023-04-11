@@ -3,3 +3,4 @@ streamlit-folium
 s3fs
 sentence_transformers
 leafmap
+boto3
