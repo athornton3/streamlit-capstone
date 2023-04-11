@@ -127,7 +127,7 @@ for event in resp['Payload']:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
 		df = df.append(df.columns.to_list())
-		df.columns = columns.columns.to_list() 
+		df.columns = columns.columns.to_list().insert(0,"test") 
 		#df = pd.concat([df, list],ignore_index = True)
 		st.dataframe(df)
 	elif 'Stats' in event:
