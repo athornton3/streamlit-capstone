@@ -107,7 +107,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		columns = pd.read_csv(io.StringIO(records), sep=",")
-		st.write(columns)
+		st.write(columns.columns)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
 		st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
