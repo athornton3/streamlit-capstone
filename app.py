@@ -134,7 +134,8 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
-		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True)
+		st.write(dict(zip(df.columns, [col for col in df])))
+		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True) #losing the index on the first row somehow
 		df.columns = columns.columns.to_list()
 		st.dataframe(df)
 	elif 'Stats' in event:
@@ -157,7 +158,7 @@ def search_projects(title, abstract, n):
         scores.append(prj['score'])
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
     df.insert(0, "cosim_score", scores)
-    st.write(award_index)
+    #st.write(award_index)
     return df
 
 def search_projects_sql(title, abstract, n):
@@ -169,11 +170,9 @@ def search_projects_sql(title, abstract, n):
     scores = []
     award_index = []
     for prj in results[0]:
-        #related_project = projects_df.loc[prj['corpus_id']]
         award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
-        #df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    df.insert(0, "cosim_score", scores)
+    #df.insert(0, "cosim_score", scores)
     st.write(award_index)
     return df
 
