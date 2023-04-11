@@ -108,7 +108,7 @@ for event in resp['Payload']:
         print(records)
     elif 'Stats' in event:
         statsDetails = event['Stats']['Details']
-        st.write("Stats details bytesScanned: "+statsDetails['BytesScanned'])
+        st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
     	#st.markdown("")
 
 #function to take title & abstract and search corpus for similar projects
