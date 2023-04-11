@@ -126,7 +126,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
-		df = df.append(df.columns.values.to_list())
+		df = df.append(df.columns.values)
 		#hold = columns.columns.to_list()
 		#hold = hold.insert(0,"test")
 		#df.columns = ["test"]+columns.columns.to_list()
@@ -150,6 +150,20 @@ def search_projects(title, abstract, n):
         scores.append(prj['score'])
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
     df.insert(0, "cosim_score", scores)
+    return df
+
+def search_projects_sql(title, abstract, n):
+    query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
+
+    results = util.semantic_search(query_embedding, embeddings, top_k = n)
+    results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
+    df = pd.DataFrame()
+    scores = []
+    #for prj in results[0]:
+    #    related_project = projects_df.loc[prj['corpus_id']]
+    #    scores.append(prj['score'])
+    #    df = df.append(related_project) #deprecated but couldn't get pd.concat to work
+    #df.insert(0, "cosim_score", scores)
     return df
 
 try:
