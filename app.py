@@ -142,13 +142,14 @@ def search_projects(title, abstract, n):
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = []
-    column_index = results[0].columns.get_loc('corpus_id')
-    st.write(results[0][:,column_index])
+    award_index = []
     for prj in results[0]:
         related_project = projects_df.loc[prj['corpus_id']]
+        award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
     df.insert(0, "cosim_score", scores)
+    st.write(award_index)
     return df
 
 def search_projects_sql(title, abstract, n):
