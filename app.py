@@ -107,20 +107,28 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		columns = pd.read_csv(io.StringIO(records), sep=",")
-		st.write(columns.columns)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
-		st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
+		#st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
 
 
 resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
     Key='export_21_22_23_col_rv_100_latlong.csv',
     ExpressionType='SQL',
-    Expression="SELECT * FROM s3object s where s.\"AwardTitle\" = 'CI CoE: Demo Pilot: Advancing Research Computing and Data: Strategic Tools, Practices, and Professional Development'",
+    Expression="SELECT * FROM s3object s where s.\"Unnamed: 0.1\" = '0'",
     InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
     OutputSerialization = {'CSV': {}},
 )
+
+#resp = s3.select_object_content(
+#    Bucket='streamlitbucketcapstoneajt',
+#    Key='export_21_22_23_col_rv_100_latlong.csv',
+#    ExpressionType='SQL',
+#    Expression="SELECT * FROM s3object s where s.\"AwardTitle\" = 'CI CoE: Demo Pilot: Advancing Research Computing and Data: Strategic Tools, Practices, and Professional Development'",
+#    InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
+#    OutputSerialization = {'CSV': {}},
+#)
 
 for event in resp['Payload']:
 	if 'Records' in event:
@@ -131,7 +139,7 @@ for event in resp['Payload']:
 		st.dataframe(df)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
-		st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
+		#st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
 
 			
 #function to take title & abstract and search corpus for similar projects
@@ -159,11 +167,14 @@ def search_projects_sql(title, abstract, n):
     results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = []
-    #for prj in results[0]:
-    #    related_project = projects_df.loc[prj['corpus_id']]
-    #    scores.append(prj['score'])
-    #    df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    #df.insert(0, "cosim_score", scores)
+    award_index = []
+    for prj in results[0]:
+        #related_project = projects_df.loc[prj['corpus_id']]
+        award_index.append(prj['corpus_id'])
+        scores.append(prj['score'])
+        #df = df.append(related_project) #deprecated but couldn't get pd.concat to work
+    df.insert(0, "cosim_score", scores)
+    st.write(award_index)
     return df
 
 try:
