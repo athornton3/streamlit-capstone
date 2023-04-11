@@ -104,7 +104,7 @@ resp = s3.select_object_content(
 
 for event in resp['Payload']:
 	if 'Records' in event:
-        records = event['Records']['Payload'].decode('utf-8')
+		records = event['Records']['Payload'].decode('utf-8')
 		csvStringIO = StringIO(records)
 		df = pd.read_csv(csvStringIO, sep=",")
 		st.dataframe(df)
