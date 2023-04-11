@@ -6,6 +6,7 @@ import pandas as pd
 import altair as alt
 import re
 import s3fs 
+import boto3
 import pickle
 import sentence_transformers
 from sentence_transformers import SentenceTransformer, util
@@ -89,6 +90,26 @@ embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
 #embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
 model = load_model('allenai-specter')
+
+s3 = boto3.client('s3')
+
+resp = s3.select_object_content(
+    Bucket='streamlitbucketcapstoneajt',
+    Key='export_21_22_23_col_rv_100_latlong.csv',
+    ExpressionType='SQL',
+    Expression="SELECT * FROM s3object s where s.\"AwardTitle\" = 'CI CoE: Demo Pilot: Advancing Research Computing and Data: Strategic Tools, Practices, and Professional Development'",
+    InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
+    OutputSerialization = {'CSV': {}},
+)
+
+for event in resp['Payload']:
+    if 'Records' in event:
+        records = event['Records']['Payload'].decode('utf-8')
+        print(records)
+    elif 'Stats' in event:
+        statsDetails = event['Stats']['Details']
+        st.write("Stats details bytesScanned: "+statsDetails['BytesScanned'])
+    	#st.markdown("")
 
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
