@@ -126,7 +126,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
-		df.append(dict(zip(df.columns, [col[1] for col in df])), ignore_index=True)
+		df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True)
 		#hold = columns.columns.to_list()
 		#hold = hold.insert(0,"test")
 		df.columns = ["test"]+columns.columns.to_list()
