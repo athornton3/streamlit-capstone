@@ -134,7 +134,7 @@ for event in resp['Payload']:
 	if 'Records' in event:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
-		st.write(dict(zip(df.columns, [col for col in df])))
+		#st.write(dict(zip(df.columns, [col for col in df])))
 		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True) #losing the index on the first row somehow
 		df.columns = columns.columns.to_list()
 		st.dataframe(df)
