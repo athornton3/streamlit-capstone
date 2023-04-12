@@ -111,7 +111,7 @@ for event in resp['Payload']:
 		statsDetails = event['Stats']['Details']
 		#st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
 
-
+#don't have to do it this way as the csv is pretty small and embeddings small too
 resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
     Key='export_2023_col_rv_latlong.csv',
@@ -135,13 +135,13 @@ for event in resp['Payload']:
 		records = event['Records']['Payload'].decode('utf-8')
 		df = pd.read_csv(io.StringIO(records), sep=",")
 		#st.write(dict(zip(df.columns, [col for col in df])))
-		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True) #losing the index on the first row somehow
+		df = df.append(dict(zip(df.columns, [col for col in df])), ignore_index=True) 
 		df.columns = columns.columns.to_list()
-		st.dataframe(df)
+		#st.dataframe(df)
 	elif 'Stats' in event:
 		statsDetails = event['Stats']['Details']
 		#st.write("Stats details bytesScanned: "+str(statsDetails['BytesScanned']))
-
+#sentences_array = project_texts.to_numpy()
 			
 #function to take title & abstract and search corpus for similar projects
 def search_projects(title, abstract, n):
