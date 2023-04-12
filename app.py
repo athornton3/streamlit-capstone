@@ -84,10 +84,10 @@ def read_embeddings(filename):
         cache_data = pickle.loads(pkl.read())
     return cache_data
 
-projects_df = read_file("streamlitbucketcapstoneajt/export_21_22_23_col_rv_100_latlong.csv")
+projects_df = read_file("streamlitbucketcapstoneajt/export_2023_col_rv_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 
-embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings.pkl")
+embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings_2023.pkl")
 #embeddings = get_embeddings(model, project_texts) #only if embeddings not found/not available
 
 model = load_model('allenai-specter')
@@ -97,7 +97,7 @@ s3 = boto3.client('s3')
 #select column headers
 resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
-    Key='export_21_22_23_col_rv_100_latlong.csv',
+    Key='export_2023_col_rv_latlong.csv',
     ExpressionType='SQL',
     Expression="SELECT * FROM s3object s limit 1",
     InputSerialization = {'CSV': {"FileHeaderInfo": "None"}, 'CompressionType': 'NONE'},
@@ -114,9 +114,9 @@ for event in resp['Payload']:
 
 resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
-    Key='export_21_22_23_col_rv_100_latlong.csv',
+    Key='export_2023_col_rv_latlong.csv',
     ExpressionType='SQL',
-    Expression="SELECT * FROM s3object s where s.\"Unnamed: 0.1\" in ('5','80')",
+    Expression="SELECT * FROM s3object s where s.\"Index0\" in ('5','80')",
     InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
     OutputSerialization = {'CSV': {}},
 )
