@@ -63,7 +63,7 @@ with st.form("form1", clear_on_submit=False):
             help="You can choose the minimum dollar threshold for results. Between $0 and $10million, default is $0.",
             )
             
-        agree = st.checkbox('Include Conference Awards', value=True)
+        includeConf = st.checkbox('Include Conference Awards', value=True)
 			
         submit_button = st.form_submit_button("Submit title/abstract")
 
