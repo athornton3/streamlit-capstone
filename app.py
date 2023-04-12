@@ -54,7 +54,17 @@ with st.form("form1", clear_on_submit=False):
             value=10,
             help="You can choose the number of results to display. Between 3 and 30, default number is 10.",
             )
-
+        
+        dollarThreshold = st.slider(
+            "Awarded Amount",
+            min_value=0,
+            max_value=10000000,
+            value=0,
+            help="You can choose the minimum dollar threshold for results. Between $0 and $10million, default is $0.",
+            )
+            
+        agree = st.checkbox('Include Conference Awards', value=True)
+			
         submit_button = st.form_submit_button("Submit title/abstract")
 
 if not submit_button:
