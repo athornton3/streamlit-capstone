@@ -116,7 +116,7 @@ resp = s3.select_object_content(
     Bucket='streamlitbucketcapstoneajt',
     Key='export_2023_col_rv_latlong.csv',
     ExpressionType='SQL',
-    Expression="SELECT * FROM s3object s where s.\"Index0\" in ('5','80')",
+    Expression="SELECT * FROM s3object s where s.\"Index0\" in ('10','80')",
     InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
     OutputSerialization = {'CSV': {}},
 )
