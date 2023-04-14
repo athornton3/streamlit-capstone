@@ -198,7 +198,7 @@ try:
         st.subheader('Matching Research Institutions')
 	
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
-        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Institution') #min-width and max-width for the popup
+        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, popup='Institution') #min-width and max-width for the popup
         #add_text and add_legend https://leafmap.org/foliumap/#leafmap.foliumap.Map.add_legend
         folium_static(m)
 		
