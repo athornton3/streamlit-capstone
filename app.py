@@ -94,7 +94,7 @@ def read_embeddings(filename):
         cache_data = pickle.loads(pkl.read())
     return cache_data
 
-projects_df = read_file("streamlitbucketcapstoneajt/export_2023_col_rv_latlong_narrow_topics.csv")
+projects_df = read_file("streamlitbucketcapstoneajt/export_2023_col_rv_latlong.csv")
 project_texts = projects_df['AwardTitle'].astype(str) + '[SEP]' + projects_df['AbstractNarration'].astype(str)
 
 embeddings = read_embeddings("streamlitbucketcapstoneajt/corpus_embeddings_2023.pkl")
