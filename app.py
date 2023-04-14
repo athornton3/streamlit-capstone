@@ -193,11 +193,11 @@ try:
     st.dataframe(df)
     with c2: # Map demo
         map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']].dropna()
-        map_data['popup'] = map_data['Institution-Name'] + ' ' + map_data['Investigator-PI_FULL_NAME']
+        map_data['Info'] = 'Institution: ' + map_data['Institution-Name'] + ' PI: ' + map_data['Investigator-PI_FULL_NAME']
         st.subheader('Matching Research Institutions')
 	
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
-        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='popup') #min-width and max-width for the popup
+        m.add_circle_markers_from_xy(map_data, x="longitude", y="latitude", radius=5, tooltip="latitude", popup='Info') #min-width and max-width for the popup
         #add_text and add_legend https://leafmap.org/foliumap/#leafmap.foliumap.Map.add_legend
         folium_static(m)
 		
