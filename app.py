@@ -163,7 +163,8 @@ def search_projects(title, abstract, n):
     scores = []
     award_index = []
     for prj in results[0]:
-        related_project = projects_df.loc[prj['corpus_id']]
+        #related_project = projects_df.loc[prj['corpus_id']]
+        related_project = projects_df.loc[projects_df["Index0"] == [prj['corpus_id']]
         award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
