@@ -192,8 +192,9 @@ try:
     df = search_projects(title, abstract, numResults)
     st.dataframe(df)
     with c2: # Map demo
-        map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']].dropna()
-        map_data['Institution'] = map_data['Institution-Name'] + '<br/><b>PI:<b> ' + map_data['Investigator-PI_FULL_NAME']
+        map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']]
+        map_data['Institution'] = map_data['Institution-Name'] + '<br/><b>PI:</b> ' + map_data['Investigator-PI_FULL_NAME']
+        map_data = map_data[['latitude','longitude','Institution']].dropna()
         st.subheader('Matching Research Institutions')
 	
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
