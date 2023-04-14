@@ -168,7 +168,7 @@ def search_projects(title, abstract, n):
         award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    #df.insert(0, "cosim_score", scores)
+    df.insert(0, "cosim_score", scores)
     st.write(award_index)
     st.write(scores)
     return df
@@ -184,7 +184,7 @@ def search_projects_sql(title, abstract, n):
     for prj in results[0]:
         award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
-    df.insert(0, "cosim_score", scores)
+    #df.insert(0, "cosim_score", scores)
     st.write(award_index)
     return df
 
