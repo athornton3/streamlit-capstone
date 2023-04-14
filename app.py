@@ -193,7 +193,7 @@ try:
     st.dataframe(df)
     with c2: # Map demo
         map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']].dropna()
-        map_data['Info'] = 'Institution: ' + map_data['Institution-Name'] + ' PI: ' + map_data['Investigator-PI_FULL_NAME']
+        map_data['Info'] = 'Institution: ' + map_data['Institution-Name'] + '<br/>PI: ' + map_data['Investigator-PI_FULL_NAME']
         st.subheader('Matching Research Institutions')
 	
         m = leafmap.Map(center=(39.381266, -97.922211), zoom=4)
