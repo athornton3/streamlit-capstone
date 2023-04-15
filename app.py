@@ -165,9 +165,9 @@ def search_projects(title, abstract, n):
         related_project = projects_df.loc[projects_df["Index0"] == prj['corpus_id']]
         scores = scores.append({"Index0" : prj['corpus_id'], "cosim" : prj['score']}, ignore_index=True)
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    #df2 = scores.merge(df, on="Index0")  
-    st.write(scores)
-    return df
+    df2 = scores.merge(df, on="Index0")  
+    #st.write(scores)
+    return df2
 
 def search_projects_sql(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
@@ -181,12 +181,12 @@ def search_projects_sql(title, abstract, n):
         award_index.append(prj['corpus_id'])
         scores.append(prj['score'])
     #df.insert(0, "cosim_score", scores)
-    st.write(award_index)
+    #st.write(award_index)
     return df
 
 try:
     df = search_projects(title, abstract, numResults)
-    st.dataframe(df[['AwardTitle', 'AbstractNarration', 'AwardAmount', 'AwardEffectiveDate', 'Organization-Directorate-LongName','Organization-Division-LongName','Institution-Name','Investigator-PI_FULL_NAME']])
+    st.dataframe(df[['cosim', 'AwardTitle', 'AbstractNarration', 'AwardAmount', 'AwardEffectiveDate', 'Organization-Directorate-LongName','Organization-Division-LongName','Institution-Name','Investigator-PI_FULL_NAME']])
     with c2: # Map demo
         map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']]
         map_data['Institution'] = map_data['Institution-Name'] + '<br/><b>PI:</b> ' + map_data['Investigator-PI_FULL_NAME']
