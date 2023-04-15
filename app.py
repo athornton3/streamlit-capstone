@@ -188,7 +188,7 @@ def search_projects_sql(title, abstract, n):
 try:
     df = search_projects(title, abstract, numResults)
     search_projects.clear()
-    st.dataframe(df[['cosim', 'AwardTitle', 'AbstractNarration', 'AwardAmount', 'AwardEffectiveDate', 'Organization-Directorate-LongName','Organization-Division-LongName','Institution-Name','Investigator-PI_FULL_NAME']])
+    st.dataframe(df[['Index0', 'cosim', 'AwardTitle', 'AbstractNarration', 'AwardAmount', 'AwardEffectiveDate', 'Organization-Directorate-LongName','Organization-Division-LongName','Institution-Name','Investigator-PI_FULL_NAME']])
     with c2: # Map demo
         map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']]
         map_data['Institution'] = map_data['Institution-Name'] + '<br/><b>PI:</b> ' + map_data['Investigator-PI_FULL_NAME']
