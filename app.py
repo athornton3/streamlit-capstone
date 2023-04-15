@@ -167,7 +167,7 @@ def search_projects(title, abstract, n):
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
     #df2 = scores.merge(df, on="Index0")  
     st.write(scores)
-    return df2
+    return df
 
 def search_projects_sql(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
