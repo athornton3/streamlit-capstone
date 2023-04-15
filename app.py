@@ -168,8 +168,8 @@ def search_projects(title, abstract, n):
         award_index.append(prj['corpus_id'])
         scores.append({prj['corpus_id'], prj['score']})
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    #score = pd.DataFrame(scores)
-    #df = pd.concat([score, df],axis="columns")  #.insert(0, "cosim_score", scores)
+    score = pd.DataFrame({"Index0" : scores[1], "cosim": scores[0]}) 
+    df = score.merge(df, on="Index0")  #.insert(0, "cosim_score", scores)
     st.write(award_index)
     st.write(scores)
     return df
