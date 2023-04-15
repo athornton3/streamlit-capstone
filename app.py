@@ -166,8 +166,9 @@ def search_projects(title, abstract, n):
         related_project = projects_df.loc[projects_df["Index0"] == prj['corpus_id']]
         scores = scores.append({"Index0" : prj['corpus_id'], "cosim" : prj['score']}, ignore_index=True)
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
+    st.dataframe(df)  
     df2 = scores.merge(df, on="Index0")  
-    #st.write(scores)
+    st.write(scores)
     return df2
 
 def search_projects_sql(title, abstract, n):
