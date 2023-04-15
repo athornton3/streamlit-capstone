@@ -154,6 +154,7 @@ for event in resp['Payload']:
 #sentences_array = project_texts.to_numpy()
 			
 #function to take title & abstract and search corpus for similar projects
+@st.cache_data(max_entries=1)
 def search_projects(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
 
@@ -186,6 +187,7 @@ def search_projects_sql(title, abstract, n):
 
 try:
     df = search_projects(title, abstract, numResults)
+    search_projects.clear()
     st.dataframe(df[['cosim', 'AwardTitle', 'AbstractNarration', 'AwardAmount', 'AwardEffectiveDate', 'Organization-Directorate-LongName','Organization-Division-LongName','Institution-Name','Investigator-PI_FULL_NAME']])
     with c2: # Map demo
         map_data = df[['latitude','longitude','Institution-Name','Investigator-PI_FULL_NAME']]
