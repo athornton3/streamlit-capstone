@@ -158,19 +158,14 @@ def search_projects(title, abstract, n):
     query_embedding = model.encode(title+'[SEP]'+abstract, convert_to_tensor=True)
 
     results = util.semantic_search(query_embedding, embeddings, top_k = n)
-    results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
+    #results_normalized = util.semantic_search(query_embedding, embeddings, score_function=util.dot_score, top_k = n)
     df = pd.DataFrame()
     scores = pd.DataFrame()
-    award_index = []
     for prj in results[0]:
-        #related_project = projects_df.loc[prj['corpus_id']]
         related_project = projects_df.loc[projects_df["Index0"] == prj['corpus_id']]
-        award_index.append(prj['corpus_id'])
         scores = scores.append({"Index0" : prj['corpus_id'], "cosim" : prj['score']}, ignore_index=True)
         df = df.append(related_project) #deprecated but couldn't get pd.concat to work
-    #score = pd.DataFrame({"Index0" : scores[1], "cosim": scores[0]}) 
-    df2 = scores.merge(df, on="Index0")  #.insert(0, "cosim_score", scores)
-    st.write(award_index)
+    df2 = scores.merge(df, on="Index0")  
     st.write(scores)
     return df2
 
